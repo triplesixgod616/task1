@@ -1,1 +1,4 @@
-*.txt *.iml 
+*.txt
+.idea/
+*.iml
+out/
