@@ -28,7 +28,7 @@ public class ComplexNumber {
         return new ComplexNumber(realPart + n2.getRealPart(), imaginaryPart + n2.getImaginaryPart());
     }
 
-    public ComplexNumber substract(ComplexNumber n2) {
+    public ComplexNumber subtract(ComplexNumber n2) {
         return new ComplexNumber(realPart - n2.getRealPart(), imaginaryPart - n2.getImaginaryPart());
     }
 
@@ -38,7 +38,7 @@ public class ComplexNumber {
                 realPart * n2.getImaginaryPart() + imaginaryPart * n2.getRealPart());
     }
 
-    public void divide(ComplexNumber n2) {
+    public ComplexNumber divide(ComplexNumber n2) {
         double c = n2.getRealPart();
         double d = n2.getImaginaryPart();
 
@@ -60,29 +60,13 @@ public class ComplexNumber {
         return new ComplexNumber((ac + bd) / (zreal2 + zimag2), (bc - ad) / (zreal2 + zimag2));
     }
 
-    public void pow(ComplexNumber y) {
-        double c = y.realPart;
-        double d = y.imaginaryPart;
-        ComplexNumber z = new ComplexNumber(realPart, imaginaryPart);
-        // get polar of base
-        double r = ComplexMath.abs(z);
-        double theta = ComplexMath.arg(z);
-
-        ComplexNumber f1 = new ComplexNumber(
-                (StrictMath.pow(r, c) * StrictMath.pow(StrictMath.E, -d * theta)), 0);
-        ComplexNumber f2 =
-                new ComplexNumber(
-                        StrictMath.cos(d * StrictMath.log(r) + c * theta),
-                        StrictMath.sin(d * StrictMath.log(r) + c * theta));
-
-        return f1.multiply(f2);
-    }
-
     public boolean equals(ComplexNumber n2) {
+        if (n2 == null) return false;
+        if (this == n2) return true;
         return realPart == n2.realPart && imaginaryPart == n2.imaginaryPart;
     }
 
-    public int hashCode() {
+    public static int hashCode(double realPart, double imaginaryPart) {
         return (Double) realPart.hashCode() + (Double) imaginaryPart.hashCode() / (Double) realPart.hashCode();
     }
 }

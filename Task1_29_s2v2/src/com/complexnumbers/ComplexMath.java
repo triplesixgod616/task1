@@ -2,41 +2,6 @@ package com.complexnumbers;
 
 
 public class ComplexMath {
-    public static ComplexNumber sum(ComplexNumber n1, ComplexNumber n2) {
-        return new ComplexNumber(n1.getRealPart() + n2.getRealPart(), n1.getImaginaryPart() + n2.getImaginaryPart());
-    }
-
-    public static ComplexNumber difference(ComplexNumber n1, ComplexNumber n2) {
-        return new ComplexNumber(n1.getRealPart() - n2.getRealPart(), n1.getImaginaryPart() - n2.getImaginaryPart());
-    }
-
-    public static ComplexNumber multiply(ComplexNumber n1, ComplexNumber n2) {
-        return new ComplexNumber(
-                n1.getRealPart() * n2.getRealPart() - n1.getImaginaryPart() * n2.getImaginaryPart(),
-                n1.getRealPart() * n2.getImaginaryPart() + n1.getImaginaryPart() * n2.getRealPart());
-    }
-
-    public static ComplexNumber divide(ComplexNumber n1, ComplexNumber n2) {
-        double c = n2.getRealPart();
-        double d = n2.getImaginaryPart();
-
-        double zreal2 = 0.0;
-        if (c != 0.0) {
-            zreal2 = StrictMath.pow(c, 2.);
-        }
-
-        double zimag2 = 0.0;
-        if (d != 0.0) {
-            zimag2 = StrictMath.pow(d, 2.);
-        }
-
-        double ac = n1.getRealPart() * c;
-        double bd = n1.getImaginaryPart() * d;
-        double bc = n1.getImaginaryPart() * c;
-        double ad = n1.getRealPart() * d;
-
-        return new ComplexNumber((ac + bd) / (zreal2 + zimag2), (bc - ad) / (zreal2 + zimag2));
-    }
 
     public static ComplexNumber sin(ComplexNumber z) {
         double x = Math.exp(z.getImaginaryPart());
@@ -52,6 +17,18 @@ public class ComplexMath {
         double r = Math.cos(z.getRealPart()) * (x + x_inv) / 2;
         double i = -Math.sin(z.getRealPart()) * (x - x_inv) / 2;
         return new ComplexNumber(r, i);
+    }
+
+    public static ComplexNumber tan(ComplexNumber z) {
+        return sin(z).divide(cos(z));
+    }
+
+    public static ComplexNumber atan(ComplexNumber z) {
+        double x = z.getRealPart();
+        double y = z.getImaginaryPart();
+        double x1 = Math.atan(2 * x / (1 - x * x - y * y)) / 2;
+        double y1 = Math.log((x * x + (y + 1) * (y + 1)) / (x * x + (y * y - 1) * (y * y - 1))) / 4;
+        return new ComplexNumber(x1, y1);
     }
 
     public static ComplexNumber pow(ComplexNumber z, ComplexNumber y) {
@@ -84,5 +61,4 @@ public class ComplexMath {
 
         return theta;
     }
-
 }
