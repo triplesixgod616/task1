@@ -1,5 +1,7 @@
 package com.complexnumbers;
 
+import java.util.Objects;
+
 public class ComplexNumber {
     private double realPart;
     private double imaginaryPart;
@@ -66,7 +68,7 @@ public class ComplexNumber {
         return realPart == n2.realPart && imaginaryPart == n2.imaginaryPart;
     }
 
-    public static int hashCode(double realPart, double imaginaryPart) {
-        return (Double) realPart.hashCode() + (Double) imaginaryPart.hashCode() / (Double) realPart.hashCode();
+    public int hashCode() {
+        return Objects.hash(realPart, imaginaryPart);
     }
 }
